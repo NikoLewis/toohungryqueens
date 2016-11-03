@@ -64,16 +64,13 @@
 	  displayName: 'NewPostForm',
 	
 	  getInitialState: function getInitialState() {
-	    return { title: "", author: ' ', body: '', data: null };
+	    return { title: "", body: '', data: null };
 	  },
 	  handleChange: function handleChange(e) {
 	    this.setState({ title: e.target.value });
 	  },
 	  handleBodyChange: function handleBodyChange(e) {
 	    this.setState({ body: e.target.value });
-	  },
-	  componentWillMount: function componentWillMount() {
-	    this.refresh();
 	  },
 	  refresh: function refresh() {
 	    var _this = this;
@@ -94,14 +91,9 @@
 	    _jquery2.default.ajax({
 	      url: '/posts',
 	      type: 'POST',
-	      data: {
-	        title: this.state.title,
-	        author: 'Niko',
-	        imageURL: 'http://thewanderlustkitchen.com/wp-content/uploads/2015/12/indian-chicken-korma-recipe-2.jpg',
-	        body: this.state.body
-	      }
+	      data: { title: this.state.title, body: this.state.body }
 	    });
-	  }, //
+	  },
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -112,11 +104,10 @@
 	          onSubmit: this.makeNewPost },
 	        _react2.default.createElement('input', {
 	          type: 'text',
-	          placeholder: 'Post Title',
+	          placeholder: 'body',
 	          onChange: this.handleChange,
 	          value: this.state.input }),
 	        _react2.default.createElement('input', { type: 'submit' }),
-	        _react2.default.createElement('input', { id: 'images', placeholder: 'image url' }),
 	        _react2.default.createElement('textarea', { onChange: this.handleBodyChange })
 	      ),
 	      _react2.default.createElement(
@@ -136,13 +127,6 @@
 	              null,
 	              row.title
 	            ),
-	            _react2.default.createElement('img', { src: row.imageURL }),
-	            _react2.default.createElement(
-	              'h5',
-	              null,
-	              'written by: ',
-	              row.author
-	            ),
 	            _react2.default.createElement(
 	              'h3',
 	              null,
@@ -151,7 +135,7 @@
 	          );
 	        }) : null
 	      ),
-	      _react2.default.createElement('img', { src: 'queensmap.jpg', className: 'map' })
+	      _react2.default.createElement('img', { src: '/images/pictures.jpg', className: 'soccer' })
 	    );
 	  }
 	});

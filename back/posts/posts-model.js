@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 //Schema (aka blueprtint) for our blog posts
 const blogPostSchema = mongoose.Schema({
   title: String,
+  imageURL: String,
   author: String,
   text: String,
   // image1: String,

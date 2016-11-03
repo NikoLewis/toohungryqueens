@@ -6,13 +6,16 @@ import $ from 'jquery'
 
 var NewPostForm = React.createClass({
   getInitialState: function() {
-    return({title: "", body: '', data: null})
+    return({title: "", author: ' ', body: '', data: null})
   },
   handleChange: function(e) {
     this.setState({title: e.target.value})
   },
   handleBodyChange: function(e) {
     this.setState({body: e.target.value})
+  },
+  componentWillMount: function(){
+    this.refresh()
   },
   refresh: function() {
     $.ajax({
@@ -31,13 +34,18 @@ var NewPostForm = React.createClass({
     $.ajax({
       url: '/posts',
       type: 'POST',
-      data: {title: this.state.title, body: this.state.body}
+      data: {
+        title: this.state.title,
+        author: 'Niko',
+        imageURL: 'http://thewanderlustkitchen.com/wp-content/uploads/2015/12/indian-chicken-korma-recipe-2.jpg',
+        body: this.state.body
+      }
     })
-  },
+  },//
   render: function() {
     return(
       <div>
-       <img src="/images/queensmap.jpg" className="map" />
+       
         <form
           onSubmit={this.makeNewPost}>
           <input
@@ -46,16 +54,17 @@ var NewPostForm = React.createClass({
             onChange={this.handleChange}
             value={this.state.input}></input>
           <input type="submit"></input>
+          <input id='images' placeholder='image url'></input>
           <textarea onChange={this.handleBodyChange}></textarea>
           
         </form>
         <button onClick={this.refresh}>Refresh data</button>
         <ul>
         {this.state.data ? this.state.data.map(row => (
-          <li key={row.key}><h2>{row.title}</h2><h5>{row.author}</h5><h3>{row.text}</h3></li>
+          <li key={row.key}><h2>{row.title}</h2><img src={row.imageURL} /><h5>written by: {row.author}</h5><h3>{row.text}</h3></li>
         )) : null}
         </ul>
-       
+       <img src="queensmap.jpg" className="map" />
       </div>
     )
   }
