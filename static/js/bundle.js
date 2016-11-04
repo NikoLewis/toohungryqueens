@@ -72,8 +72,14 @@
 	  handleBodyChange: function handleBodyChange(e) {
 	    this.setState({ body: e.target.value });
 	  },
+	  handleAuthorChange: function handleAuthorChange(e) {
+	    this.setState({ author: e.target.value });
+	  },
 	  handleImgChange: function handleImgChange(e) {
 	    this.setState({ imageURL: e.target.value });
+	  },
+	  handleDeleteChange: function handleDeleteChange(e) {
+	    this.setState({ title: e.target.value });
 	  },
 	  componentWillMount: function componentWillMount() {
 	    this.refresh();
@@ -99,12 +105,22 @@
 	      type: 'POST',
 	      data: {
 	        title: this.state.title,
-	        author: 'Niko',
+	        author: this.state.author,
 	        imageURL: this.state.imageURL,
 	        body: this.state.body
 	      }
 	    });
-	  }, //
+	  },
+	  deletePost: function deletePost(e) {
+	    console.log('delete');
+	    _jquery2.default.ajax({
+	      url: '/posts',
+	      type: 'DELETE',
+	      data: { title: this.state.title }
+	
+	    });
+	  },
+	
 	  render: function render() {
 	    return _react2.default.createElement(
 	      'div',
@@ -118,8 +134,15 @@
 	          placeholder: 'Post Title',
 	          onChange: this.handleChange,
 	          value: this.state.input }),
+	        _react2.default.createElement('input', { type: 'text', placeholder: 'Author By', onChange: this.handleAuthorChange }),
 	        _react2.default.createElement('input', { type: 'submit' }),
 	        _react2.default.createElement('input', { id: 'images', placeholder: 'image url', onChange: this.handleImgChange }),
+	        _react2.default.createElement('input', { id: 'delete', placeholder: 'post title to delete' }),
+	        _react2.default.createElement(
+	          'button',
+	          { onClick: this.handleDeleteChange, value: this.state.input },
+	          'Delete'
+	        ),
 	        _react2.default.createElement('textarea', { onChange: this.handleBodyChange })
 	      ),
 	      _react2.default.createElement(
@@ -129,7 +152,7 @@
 	      ),
 	      _react2.default.createElement(
 	        'ul',
-	        null,
+	        { id: 'list' },
 	        this.state.data ? this.state.data.map(function (row) {
 	          return _react2.default.createElement(
 	            'li',
@@ -143,7 +166,7 @@
 	            _react2.default.createElement(
 	              'h5',
 	              null,
-	              'written by: ',
+	              ' ',
 	              row.author
 	            ),
 	            _react2.default.createElement(

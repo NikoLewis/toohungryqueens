@@ -38,12 +38,24 @@ const postPosts = (req, res) => {
     console.log('post successfully created');
   })
 }
+const deletePost = (req, res) => {
+  console.log('Post Deleted!');
+  console.log(req.body);
+  Post.remove({
+    title: req.body.title,
+  
+  }, (err) => {
+    if (err) console.log("deletion error")
+    else console.log("delete successful");
+  })
+}
 
 
 //Configure router for get and post calls
 router.route('/')
   .get(getPosts)
   .post(postPosts)
+  .delete(deletePost)
 
 
 module.exports = router;
