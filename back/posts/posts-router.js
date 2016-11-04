@@ -17,8 +17,8 @@ const getPosts = (req, res) => {
           text: row.text,
            key: row._id, 
            timestamp: row._id.getTimestamp(),
-            image1: row.image1, 
-            image2: row.image2 
+            // image1: row.image1, 
+            // image2: row.image2 
           }))
         .sort((row1, row2) => (row1.timestamp < row2.timestamp ? -1 : 1))
     );

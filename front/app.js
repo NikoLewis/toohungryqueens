@@ -6,13 +6,17 @@ import $ from 'jquery'
 
 var NewPostForm = React.createClass({
   getInitialState: function() {
-    return({title: "", author: ' ', body: '', data: null})
+    return({title: "", author: ' ', imageURL:' ', body: '', data: null})
   },
   handleChange: function(e) {
     this.setState({title: e.target.value})
   },
   handleBodyChange: function(e) {
     this.setState({body: e.target.value})
+  },
+  handleImgChange: function(e){
+    this.setState({imageURL: e.target.value})
+
   },
   componentWillMount: function(){
     this.refresh()
@@ -37,7 +41,7 @@ var NewPostForm = React.createClass({
       data: {
         title: this.state.title,
         author: 'Niko',
-        imageURL: 'http://thewanderlustkitchen.com/wp-content/uploads/2015/12/indian-chicken-korma-recipe-2.jpg',
+        imageURL: this.state.imageURL,
         body: this.state.body
       }
     })
@@ -54,17 +58,18 @@ var NewPostForm = React.createClass({
             onChange={this.handleChange}
             value={this.state.input}></input>
           <input type="submit"></input>
-          <input id='images' placeholder='image url'></input>
+          <input id='images' placeholder='image url' onChange={this.handleImgChange}></input>
           <textarea onChange={this.handleBodyChange}></textarea>
           
         </form>
         <button onClick={this.refresh}>Refresh data</button>
+
         <ul>
         {this.state.data ? this.state.data.map(row => (
           <li key={row.key}><h2>{row.title}</h2><img src={row.imageURL} /><h5>written by: {row.author}</h5><h3>{row.text}</h3></li>
         )) : null}
         </ul>
-       <img src="queensmap.jpg" className="map" />
+       
       </div>
     )
   }

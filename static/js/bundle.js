@@ -64,13 +64,16 @@
 	  displayName: 'NewPostForm',
 	
 	  getInitialState: function getInitialState() {
-	    return { title: "", author: ' ', body: '', data: null };
+	    return { title: "", author: ' ', imageURL: ' ', body: '', data: null };
 	  },
 	  handleChange: function handleChange(e) {
 	    this.setState({ title: e.target.value });
 	  },
 	  handleBodyChange: function handleBodyChange(e) {
 	    this.setState({ body: e.target.value });
+	  },
+	  handleImgChange: function handleImgChange(e) {
+	    this.setState({ imageURL: e.target.value });
 	  },
 	  componentWillMount: function componentWillMount() {
 	    this.refresh();
@@ -97,7 +100,7 @@
 	      data: {
 	        title: this.state.title,
 	        author: 'Niko',
-	        imageURL: 'http://thewanderlustkitchen.com/wp-content/uploads/2015/12/indian-chicken-korma-recipe-2.jpg',
+	        imageURL: this.state.imageURL,
 	        body: this.state.body
 	      }
 	    });
@@ -116,7 +119,7 @@
 	          onChange: this.handleChange,
 	          value: this.state.input }),
 	        _react2.default.createElement('input', { type: 'submit' }),
-	        _react2.default.createElement('input', { id: 'images', placeholder: 'image url' }),
+	        _react2.default.createElement('input', { id: 'images', placeholder: 'image url', onChange: this.handleImgChange }),
 	        _react2.default.createElement('textarea', { onChange: this.handleBodyChange })
 	      ),
 	      _react2.default.createElement(
@@ -150,8 +153,7 @@
 	            )
 	          );
 	        }) : null
-	      ),
-	      _react2.default.createElement('img', { src: 'queensmap.jpg', className: 'map' })
+	      )
 	    );
 	  }
 	});
